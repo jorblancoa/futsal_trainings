@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from datetime import datetime
@@ -170,6 +171,22 @@ def create_admin(username, email, password):
     db.session.add(admin)
     db.session.commit()
     print(f"Admin user '{username}' created successfully.")
+
+db_initialized = False
+
+@app.before_request
+def check_db_initialized():
+    global db_initialized
+    if not db_initialized:
+        with app.app_context():
+            db.create_all()
+            admin = User.query.filter_by(username='admin').first()
+            if not admin:
+                admin = User(username='admin', email='admin@example.com', is_admin=True)
+                admin.set_password(os.environ.get('ADMIN_INITIAL_PASSWORD', 'change_me_immediately'))
+                db.session.add(admin)
+                db.session.commit()
+        db_initialized = True
 
 if __name__ == '__main__':
     app.run(debug=True)
