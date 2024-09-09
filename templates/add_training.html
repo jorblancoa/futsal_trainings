@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="text-center mb-4">Add New Training</h1>
+<form method="POST">
+    <div class="mb-3">
+        <label for="date" class="form-label">Date and Time</label>
+        <input type="datetime-local" class="form-control" id="date" name="date" required>
+    </div>
+    <div class="mb-3">
+        <label for="max_participants" class="form-label">Max Participants</label>
+        <input type="number" class="form-control" id="max_participants" name="max_participants" required>
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Add Training</button>
+    </div>
+</form>
+{% endblock %}

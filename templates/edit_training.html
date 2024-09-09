@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="text-center mb-4">Edit Training</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="date" class="form-label">Date and Time:</label>
+                    <input type="datetime-local" class="form-control" id="date" name="date" value="{{ training.date.strftime('%Y-%m-%dT%H:%M') }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="max_participants" class="form-label">Maximum Participants:</label>
+                    <input type="number" class="form-control" id="max_participants" name="max_participants" value="{{ training.max_participants }}" required>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Update Training</button>
+                    <a href="{{ url_for('admin') }}" class="btn btn-secondary">Back to Admin Panel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
